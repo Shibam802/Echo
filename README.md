@@ -1,4 +1,4 @@
-# 🧑‍💻 Express Authentication & Post System
+# 🧑‍💻 ECHO- Express Authentication & Post System
 
 A simple **Node.js + Express.js** web app with **JWT-based authentication**, **bcrypt password hashing**, and **EJS frontend**.  
 Users can register, log in, create posts, like/unlike posts, and edit their own posts — all securely managed with JWT tokens stored in cookies.
