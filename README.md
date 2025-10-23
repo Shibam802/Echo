@@ -51,8 +51,9 @@ Copy code
 ## Screenshots
 
 <img width="1906" height="980" alt="image" src="https://github.com/user-attachments/assets/9a461836-745e-408d-8491-7df77cf7f3bb" />
-<img width="1909" height="986" alt="image" src="https://github.com/user-attachments/assets/ad9db89c-6133-4e02-89d9-8cab5c5f9773" />
-<img width="1919" height="990" alt="image" src="https://github.com/user-attachments/assets/66a48c97-bb4f-4c4a-beb4-89cb6c6f6b44" />
+<img width="1902" height="988" alt="image" src="https://github.com/user-attachments/assets/75b96bac-c34a-44e9-bac0-7ccf9ca4562b" />
+<img width="1892" height="973" alt="image" src="https://github.com/user-attachments/assets/e2c8a1ab-07ef-4087-ace5-3e8281106a67" />
+<img width="1891" height="984" alt="Screenshot 2025-10-23 125046" src="https://github.com/user-attachments/assets/754c345e-afcc-4616-9a5f-0071391cfadb" />
 <img width="1919" height="982" alt="image" src="https://github.com/user-attachments/assets/dd34631d-31ca-4faf-84c0-4e6a286c87b1" />
 
 
