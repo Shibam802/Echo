@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Fullscreen black canvas */
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body class="text-white flex items-center justify-center min-h-screen relative overflow-hidden bg-black">
+
+  <!-- Starry Background -->
+  <canvas id="bg"></canvas>
+
+  <!-- Create Account Form -->
+  <div class="absolute inset-0 flex items-center justify-center z-10">
+    <div class="bg-black/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-md border border-zinc-800 animate-fadeIn">
+      <h3 class="text-3xl font-bold mb-6 text-center text-blue-400 tracking-wide">Upload Profile Pic</h3>
+
+      <form action="/upload" method="post" class="flex flex-col gap-4" enctype="multipart/form-data">
+        <input class="px-4 py-2 rounded-md bg-zinc-950 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-zinc-500" type="file" placeholder="Full Name" name="image" required>
+       
+
+        <button type="submit" class="mt-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition-all duration-300 font-semibold animate-glow">
+          Upload Pic
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-zinc-500 mt-5">
+        Already have an account?
+        <a href="/login" class="text-blue-400 hover:text-blue-300 underline">Login</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Form Animation -->
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6; }
+      50% { box-shadow: 0 0 20px #60a5fa, 0 0 40px #60a5fa; }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 1s ease-out;
+    }
+    .animate-glow {
+      animation: glow 2s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Shooting Star & Star Animation -->
+  <script>
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const stars = [];
+    const numStars = 300;
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.2,
+        alpha: Math.random(),
+        speed: Math.random() * 0.02 + 0.005,
+      });
+    }
+
+    const shootingStars = [];
+
+    function createShootingStar() {
+      const startX = Math.random() * width;
+      const startY = Math.random() * (height / 3);
+      const length = Math.random() * 100 + 120;
+      const speed = Math.random() * 15 + 20;
+      const angle = Math.random() * 0.3 + 0.2;
+      shootingStars.push({
+        x: startX,
+        y: startY,
+        length,
+        speed,
+        angle,
+        alpha: 1,
+      });
+    }
+
+    function drawStars() {
+      for (let s of stars) {
+        s.alpha += s.speed;
+        const twinkle = Math.abs(Math.sin(s.alpha * Math.PI));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${twinkle})`;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = "white";
+        ctx.fill();
+      }
+    }
+
+    function drawShootingStars() {
+      for (let i = 0; i < shootingStars.length; i++) {
+        const s = shootingStars[i];
+        s.x += s.speed * Math.cos(s.angle);
+        s.y += s.speed * Math.sin(s.angle);
+        s.alpha -= 0.01;
+
+        const grad = ctx.createLinearGradient(
+          s.x, s.y,
+          s.x - s.length * Math.cos(s.angle),
+          s.y - s.length * Math.sin(s.angle)
+        );
+        grad.addColorStop(0, `rgba(100,150,255,${s.alpha})`);
+        grad.addColorStop(1, "rgba(255,255,255,0)");
+
+        ctx.beginPath();
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2;
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(
+          s.x - s.length * Math.cos(s.angle),
+          s.y - s.length * Math.sin(s.angle)
+        );
+        ctx.stroke();
+
+        if (s.alpha <= 0) {
+          shootingStars.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = "black"; // pure black background
+      ctx.fillRect(0, 0, width, height);
+
+      drawStars();
+      drawShootingStars();
+
+      if (Math.random() < 0.03) createShootingStar();
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
